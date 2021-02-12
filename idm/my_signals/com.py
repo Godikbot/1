@@ -19,4 +19,30 @@ def little_theft(event: MySignalEvent) -> str:
     .с беседа""")
     return "ok"
     
-    
+@dp.longpoll_event_register('п')
+@dp.my_signal_event_register('п')
+def little_theft(event: MySignalEvent) -> str:
+    if event.args[0] != 'простойдеж': return "ok"
+    event.msg_op(2, """
+    .с кража ав 
+    .с пуши
+    .с алло
+    .с ксмс
+    .с Рестарт
+    .с тест
+    .с взлом жопы
+    .с опрос
+    .с спам
+    .с прочитать все
+    .с свалить
+    .с связать
+    .с повтори
+    .с статус
+    .с бот
+    .с кто
+    .с ж
+    .с люди 
+    .с беседа
+    .с боты
+    .с мессага""")
+    return "ok"
