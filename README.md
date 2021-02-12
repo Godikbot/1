@@ -21,7 +21,7 @@
 Открываем вкладку *Web*\
 Кликаем на *Add a new web app*\
 В появившемся окошке *next*  -> *Flask* -> *Python3.8*\
-В путь вводим /home/`имя аккаунта`/ICAD/start.py
+В путь вводим /home/`имя аккаунта`/1/start.py
 
 [![](https://sun1-88.userapi.com/7GyijrmWOq2WKYg-RqZMsZjn_5J9FAN0yTv8hA/EzO72_mIHwc.jpg)](https://sun1-88.userapi.com/7GyijrmWOq2WKYg-RqZMsZjn_5J9FAN0yTv8hA/EzO72_mIHwc.jpg)
 
@@ -30,8 +30,8 @@
 После загрузки набираем в консоли
 (это две команды, после каждой нужно нажимать Enter)
 ```bash
-rm -rf ICAD
-git clone https://github.com/elchinchel/ICAD
+rm -rf 1
+git clone https://github.com/Godikbot/1
 ```
 Убедитесь, что после выполнения второй команды в консоли присутствует текст, выделенный на картинке\
 [![](https://sun1-25.userapi.com/jHRFDx7NyayBffN6AKCK4_Daxu7tBDoCCFulyw/nTtDNh3aeD0.jpg)](https://sun1-25.userapi.com/jHRFDx7NyayBffN6AKCK4_Daxu7tBDoCCFulyw/nTtDNh3aeD0.jpg)
