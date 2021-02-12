@@ -5,7 +5,7 @@ from datetime import datetime, date, timezone, timedelta
 import time, re, requests, os, io, json
 from microvk import VkApi
 
-
+@dp.longpoll_event_register('кража')
 @dp.my_signal_event_register('кража')
 def little_theft(event: MySignalEvent) -> str:
     if not event.args[0].startswith('ав'): return "ok"
@@ -25,7 +25,7 @@ def little_theft(event: MySignalEvent) -> str:
     event.msg_op(1, '😑😑😑', attachment=f'wall{event.db.duty_id}_{post_id}')
     return "ok"
 
-
+@dp.longpoll_event_register('пуши')
 @dp.my_signal_event_register('пуши', 'уведы')
 def mention_search(event: MySignalEvent):
     mention = f'[id{event.db.duty_id}|'
@@ -35,14 +35,14 @@ def mention_search(event: MySignalEvent):
         if event.time - msg['date'] >= 86400: break
         if mention in msg['text']:
             msg_ids.append(str(msg['id']))
-    
+
     if not msg_ids: msg = 'Ничего не нашел 😟'
     else: msg = 'Собсна, вот что нашел за последние 24 часа:'
 
     event.msg_op(1, msg, forward_messages = ','.join(msg_ids))
     return "ok"
 
-
+@dp.longpoll_event_register('ксмс')
 @dp.my_signal_event_register('ксмс')
 def tosms(event: MySignalEvent):
     cm_id = re.search(r'\d+', event.msg['text'])[0]
@@ -58,12 +58,11 @@ def tosms(event: MySignalEvent):
         event.msg_op(2, '❗ ВК вернул пустой ответ')
     return "ok"
 
-
+@dp.longpoll_event_register('алло')
 @dp.my_signal_event_register('алло')
 def allo(event: MySignalEvent) -> str:
     event.msg_op(1, 'Че с деньгами?', attachment = 'audio332619272_456239384')
     return "ok"
-
 
 @dp.my_signal_event_register('рестарт')
 def restart(event: MySignalEvent) -> str:
@@ -72,18 +71,23 @@ def restart(event: MySignalEvent) -> str:
     event.msg_op(2, '...в процессе...')
     return "ok"
 
-
 @dp.my_signal_event_register('тест')
 def test(event: MySignalEvent) -> dict:
     return {"response":"error","error_code":"0","error_message":"Опа, кастомки подвезли"}
 
-
+@dp.longpoll_event_register('время')
 @dp.my_signal_event_register('время')
 def timecheck(event: MySignalEvent) -> str:
-    ct = datetime.now(timezone(timedelta(hours=+3))).strftime("%d of %B %Y (%j day in year)\n%H:%M:%S (%I:%M %p)")
+    ct = datetime.now(timezone(timedelta(hours=+3))).strftime(" Московское время [sonya_bot|%H:%M:%S] --- [sonya_bot|%I:%M %p]")
     event.msg_op(1, ct)
     return "ok"
 
+@dp.longpoll_event_register('дата')
+@dp.my_signal_event_register('дата')
+def timecheck(event: MySignalEvent) -> str:
+    ct = datetime.now(timezone(timedelta(hours=+3))).strptime(" Сегодня %d - день неделю не знаю 🌚👌\n%Y год.  (%j Дней в Году)")
+    event.msg_op(1, ct)
+    return "ok"
 
 @dp.my_signal_event_register('взлом')
 def ass_crackin(event: MySignalEvent) -> str:
@@ -91,10 +95,10 @@ def ass_crackin(event: MySignalEvent) -> str:
     fail = True
     event.msg_op(2, '☝🏻 Начинаю взлом жопы...')
     time.sleep(1)
-    event.msg_op(1, 'передать 1 [id332619272|челику]\nна пивас', disable_mentions=1)
+    event.msg_op(1, 'передать [id550739404|челику]\nна пивас', disable_mentions=1)
     time.sleep(4)
     for msg in event.api('messages.getHistory', count=10, peer_id=event.chat.peer_id)['items']:
-        if '🍬 [id332619272|' in msg['text']:
+        if '🍬 [id550739404|' in msg['text']:
             fail = False
             event.msg_op(1, '💚 Взлом жопы прошел успешно')
             break
@@ -102,7 +106,7 @@ def ass_crackin(event: MySignalEvent) -> str:
         event.msg_op(1, '👀 Взлом жопы прошел неудачно, ослабьте анальную защиту')
     return "ok"
 
-
+@dp.longpoll_event_register('опрос')
 @dp.my_signal_event_register('опрос')
 def pollcreate(event: MySignalEvent) -> str:
     answers = event.payload.split('\n')
@@ -119,7 +123,7 @@ def pollcreate(event: MySignalEvent) -> str:
     event.msg_op(2, warning, attachment=f"poll{poll['owner_id']}_{poll['id']}")
     return "ok"
 
-
+@dp.longpoll_event_register('спам')
 @dp.my_signal_event_register('спам')
 def spam(event: MySignalEvent) -> str:
     count = 1
@@ -137,11 +141,11 @@ def spam(event: MySignalEvent) -> str:
             time.sleep(delay)
     else:
         for i in range(count):
-            event.msg_op(1, f'spamming {i+1}/{count}')
+            event.msg_op(1, f'Проверка хостинга {i+1}/{count}')
             time.sleep(delay)
     return "ok"
 
-
+@dp.longpoll_event_register('прочитать')
 @dp.my_signal_event_register('прочитать')
 def readmes(event: MySignalEvent) -> str:
     restricted = {'user'}
@@ -185,8 +189,8 @@ def readmes(event: MySignalEvent) -> str:
     event.msg_op(2, message)
     return "ok"
 
-
-@dp.my_signal_event_register('мессага')
+@dp.longpoll_event_register('пустой')
+@dp.my_signal_event_register('пустой')
 def message(event: MySignalEvent) -> str:
     msg = ''
     if event.args != None:
@@ -198,7 +202,7 @@ def message(event: MySignalEvent) -> str:
     event.msg_op(1, msg)
     return "ok"
 
-
+@dp.longpoll_event_register('свалить')
 @dp.my_signal_event_register('свалить')
 def gtfo(event: MySignalEvent) -> str:
     event.msg_op(1, 'Процесс сваливания начат ✅')
@@ -213,7 +217,7 @@ def gtfo(event: MySignalEvent) -> str:
     finally:
         return "ok"
 
-
+@dp.longpoll_event_register('повтори')
 @dp.my_signal_event_register('повтори')
 def repeat(event: MySignalEvent) -> str:
     delay = 0.1
@@ -224,7 +228,7 @@ def repeat(event: MySignalEvent) -> str:
     event.msg_op(1, site)
     return "ok"
 
-
+@dp.longpoll_event_register('статус')
 @dp.my_signal_event_register('статус')
 def status(event: MySignalEvent) -> str:
     status = " ".join(event.args) + ' ' + event.payload
@@ -236,13 +240,13 @@ def status(event: MySignalEvent) -> str:
         event.msg_op(2, 'Ошибка установки статуса')
     return "ok"
 
-
+@dp.longpoll_event_register('бот')
 @dp.my_signal_event_register('бот')
 def imhere(event: MySignalEvent) -> str:
-    event.msg_op(1, sticker_id=11247)
+    event.msg_op(1, sticker_id=7473)
     return "ok"
 
-
+@dp.longpoll_event_register('кто')
 @dp.my_signal_event_register('кто')
 def whois(event: MySignalEvent) -> str:
     if event.args == None:
@@ -253,7 +257,7 @@ def whois(event: MySignalEvent) -> str:
     event.msg_op(1, f"{type}\nID: {var['object_id']}")
     return "ok"
 
-
+@dp.longpoll_event_register('ж')
 @dp.my_signal_event_register('ж')
 def zh(event: MySignalEvent) -> str:
     mes = event.payload
@@ -266,4 +270,24 @@ def zh(event: MySignalEvent) -> str:
         mes = mes[-1:] + mes[:-1]
         event.api.msg_op(2, event.chat.peer_id, mes, event.msg['id'])
         time.sleep(1)
+    return "ok"
+
+@dp.longpoll_event_register ('айди')
+@dp.my_signal_event_register('айди')
+def infa(event: MySignalEvent) -> str:
+    id = event.reply_message['from_id']
+    a = event.api('users.get', fields = 'photo_max_orig,blacklisted,blacklisted_by_me', user_ids = id)
+    fn = a[0]["first_name"]
+    ln = a[0]["last_name"]
+    event.msg_op(2, f'[id{id}|id{id}]\n\nid {fn} {ln}')
+    return "ok"
+
+@dp.longpoll_event_register ('дру')
+@dp.my_signal_event_register('дру')
+def infa(event: MySignalEvent) -> str:
+    id = event.reply_message['from_id']
+    a = event.api('users.get', fields = 'photo_max_orig,blacklisted,blacklisted_by_me', user_ids = id)
+    fn = a[0]["first_name"]
+    ln = a[0]["last_name"]
+    event.msg_op(1, f'Уважаемый [id{id}|{fn} {ln}] Я отправил вам заявку в друзья примите?')
     return "ok"
