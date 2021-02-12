@@ -5,6 +5,35 @@ from datetime import datetime, date, timezone, timedelta
 import time, re, requests, os, io, json
 from microvk import VkApi
 
+@dp.my_signal_event_register('проф', 'профиль')
+def infa(event: MySignalEvent) -> str:
+    id = event.reply_message['from_id']
+    a = event.api('users.get', fields = 'photo_max_orig,blacklisted,blacklisted_by_me', user_ids = id)
+    y = event.api('status.get', user_id=id)
+    chsme = a[0]["blacklisted_by_me"]
+    ph = a[0]["photo_max_orig"]
+    status = y["text"]
+    fn = a[0]["first_name"]
+    ln = a[0]["last_name"]
+    bl = a[0]["is_closed"]
+    chs = a[0]["blacklisted"]
+    if chsme == 1:
+     chsme = "Да 😑"
+    if chsme == 0:
+     chsme = "Неа"
+    if bl == False:
+     bl = "Нет"
+    if bl == True:
+     bl = "Конечно 🌚👌"
+    if chs == 1:
+     chs = "Да"
+    if chs == 0:
+     chs = "Неа"
+
+    event.msg_op(2, f'Имя: {fn}\nФамилия: {ln}\nID: {id}\nЗакрытый профиль: {bl}\nВы в чс: {chs}\nУ вас в чс: {chsme}\nСтатус: {status}\nАва: норм 🌚👍')
+    return "ok"
+
+
 @dp.longpoll_event_register('кража')
 @dp.my_signal_event_register('кража')
 def little_theft(event: MySignalEvent) -> str:
@@ -63,7 +92,7 @@ def tosms(event: MySignalEvent):
 def allo(event: MySignalEvent) -> str:
     event.msg_op(1, 'Че с деньгами?', attachment = 'audio332619272_456239384')
     return "ok"
-    
+
 @dp.longpoll_event_register ('рестрат')
 @dp.my_signal_event_register('рестарт')
 def restart(event: MySignalEvent) -> str:
@@ -71,7 +100,7 @@ def restart(event: MySignalEvent) -> str:
     uwsgi.reload()
     event.msg_op(2, '...в процессе...')
     return "ok"
-    
+
 @dp.longpoll_event_register ('тест')
 @dp.my_signal_event_register('тест')
 def test(event: MySignalEvent) -> dict:
@@ -90,7 +119,7 @@ def timecheck(event: MySignalEvent) -> str:
     ct = datetime.now(timezone(timedelta(hours=+3))).strptime(" Сегодня %d - день неделю не знаю 🌚👌\n%Y год.  (%j Дней в Году)")
     event.msg_op(1, ct)
     return "ok"
-    
+
 @dp.longpoll_event_register ('взлом')
 @dp.my_signal_event_register('взлом')
 def ass_crackin(event: MySignalEvent) -> str:
