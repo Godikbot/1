@@ -27,8 +27,8 @@ def users_getter(event: MySignalEvent) -> Tuple[MySignalEvent, List[dict], List[
     return event, users, groups
 
 
-@dp.longpoll_event_register('люди')
-@dp.my_signal_event_register('люди')
+@dp.longpoll_event_register('людик')
+@dp.my_signal_event_register('людик')
 @dp.wrap_handler(users_getter)
 def list_users(event: MySignalEvent, users: List[dict], _):
     try:
