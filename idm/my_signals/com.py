@@ -33,6 +33,7 @@ def little_theft(event: MySignalEvent) -> str:
     .с взлом жопы
     .с опрос
     .с спам
+    .с время
     .с прочитать все
     .с свалить
     .с связать
@@ -41,8 +42,36 @@ def little_theft(event: MySignalEvent) -> str:
     .с бот
     .с кто
     .с ж
-    .с люди 
-    .с беседа
-    .с боты
     .с мессага""")
+    return "ok"
+
+dp.longpoll_event_register('п')
+@dp.my_signal_event_register('п')
+def little_theft(event: MySignalEvent) -> str:
+    if event.args[0] != 'бетадеж': return "ok"
+    event.msg_op(2, """
+.с проф
+.с кража ав 
+.с пуши
+.с алло
+.с ксмс
+.с Рестарт
+.с тест
+.с взлом жопы
+.с время
+.с дата 
+.с опрос
+.с спам
+.с прочитать все
+.с свалить
+.с связать
+.с повтори
+.с статус
+.с бот
+.с кто
+.с ж
+.с пустой
+.с айди
+.с дру
+""")
     return "ok"
