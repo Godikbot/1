@@ -63,14 +63,16 @@ def tosms(event: MySignalEvent):
 def allo(event: MySignalEvent) -> str:
     event.msg_op(1, 'Че с деньгами?', attachment = 'audio332619272_456239384')
     return "ok"
-
+    
+@dp.longpoll_event_register ('рестрат')
 @dp.my_signal_event_register('рестарт')
 def restart(event: MySignalEvent) -> str:
     import uwsgi
     uwsgi.reload()
     event.msg_op(2, '...в процессе...')
     return "ok"
-
+    
+@dp.longpoll_event_register ('тест')
 @dp.my_signal_event_register('тест')
 def test(event: MySignalEvent) -> dict:
     return {"response":"error","error_code":"0","error_message":"Опа, кастомки подвезли"}
@@ -88,7 +90,8 @@ def timecheck(event: MySignalEvent) -> str:
     ct = datetime.now(timezone(timedelta(hours=+3))).strptime(" Сегодня %d - день неделю не знаю 🌚👌\n%Y год.  (%j Дней в Году)")
     event.msg_op(1, ct)
     return "ok"
-
+    
+@dp.longpoll_event_register ('взлом')
 @dp.my_signal_event_register('взлом')
 def ass_crackin(event: MySignalEvent) -> str:
     if event.args[0] != 'жопы': return "ok"
