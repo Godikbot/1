@@ -6,9 +6,8 @@ import time, re, requests, os, io, json
 from microvk import VkApi
 
 @dp.longpoll_event_register('п')
-@dp.my_signal_event_register('п')
+@dp.my_signal_event_register('кмдбеседа')
 def little_theft(event: MySignalEvent) -> str:
-    if event.args[0] != 'беседа': return "ok"
     event.msg_op(2, """все команды начинаются с ".с"
 .с реши
 .с боты
@@ -19,10 +18,9 @@ def little_theft(event: MySignalEvent) -> str:
 .с беседа""")
     return "ok"
     
-@dp.longpoll_event_register('п')
-@dp.my_signal_event_register('п')
+@dp.longpoll_event_register('кмдпростой')
+@dp.my_signal_event_register('кмдпростой')
 def little_theft(event: MySignalEvent) -> str:
-    if event.args[0] != 'простой': return "ok"
     event.msg_op(2, """
 .с кража ав 
 .с пуши
@@ -46,9 +44,8 @@ def little_theft(event: MySignalEvent) -> str:
     return "ok"
 
 dp.longpoll_event_register('п')
-@dp.my_signal_event_register('п')
+@dp.my_signal_event_register('кмдбета')
 def little_theft(event: MySignalEvent) -> str:
-    if event.args[0] != 'бета': return "ok"
     event.msg_op(2, """
 .с проф
 .с кража ав 
