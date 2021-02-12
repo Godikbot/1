@@ -51,7 +51,7 @@ def list_users(event: MySignalEvent, users: List[dict], _):
 
 
 @dp.longpoll_event_register('боты')
-@dp.my_signal_event_register('боты')
+@dp.my_signal_event_register('ботик')
 @dp.wrap_handler(users_getter)
 def list_groups(event: MySignalEvent, _, groups: List[dict]):
     try:
