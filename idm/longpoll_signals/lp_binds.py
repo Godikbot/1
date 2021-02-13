@@ -1,12 +1,12 @@
 from idm.objects import dp, LongpollEvent
 
-
+@dp.my_signal_event_register('связать', 'отвязать ')
 @dp.longpoll_event_register('связать', 'отвязать')
 def binds_info(event: LongpollEvent):
     event.msg_op(2, 'ℹ️ Для добавления биндов используй префиксы лп модуля ' +
                  '(по умолчанию ".лп", "!лп")')
 
-
+@dp.my_signal_event_register('бинды', 'связки')
 @dp.longpoll_event_register('бинды', 'связки')
 def binds_list(event: LongpollEvent):
     binds = event.db.lp_settings['binds']
@@ -16,5 +16,5 @@ def binds_list(event: LongpollEvent):
     else:
         message = 'Связанные с командами слова:'
         for bind in binds:
-            message += f'\n-- "{bind}" -> "{binds[bind]}"'
+            message += f'\n{bind} |-> {binds[bind]}'
     event.msg_op(2, message)
