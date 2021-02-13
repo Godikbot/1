@@ -26,5 +26,15 @@ def desriptioncall(event: MySignalEvent) -> str:
 
 @dp.my_signal_event_register('auth')
 def authmisc(event: MySignalEvent) -> str:
-    event.msg_op(1, attachment='video155440394_168735361', reply_to=event.msg['id'])
+    event.msg_op(1, """
+🌟Kate-Mobile: https://vk.cc/9LuvMs
+🌟Vk-Me: https://vk.cc/auMNXq
+🌟Vk-Admin https://vk.cc/bW3Dm9 
+🌟VK-API https://vk.cc/9Rhe80 
+
+ИНФОРМАЦИЯ
+Выберите Ссылку
+Нажмите на него
+Затем нажмите [разрешить]
+Скопируйте всю адресной строки""")
     return "ok"
