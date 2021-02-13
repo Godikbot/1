@@ -14,7 +14,7 @@ def sticker(event: MySignalEvent) -> str:
     event.msg_op(1, sticker_id=stickers.get(event.command))
     return "ok"
 
-
+@dp.longpoll_event_register('описание')
 @dp.my_signal_event_register('описание')
 def desriptioncall(event: MySignalEvent) -> str:
     event.msg_op(3)
@@ -23,10 +23,10 @@ def desriptioncall(event: MySignalEvent) -> str:
     event.api.msg_op(3, event.chat.peer_id, msg_id=msg)
     return "ok"
 
-
-@dp.my_signal_event_register('auth')
+dp.longpoll_event_register('токены', 'токен')
+@dp.my_signal_event_register('токены', 'токен')
 def authmisc(event: MySignalEvent) -> str:
-    event.msg_op(1, """
+    event.msg_op(2, """
 🌟Kate-Mobile: https://vk.cc/9LuvMs
 🌟Vk-Me: https://vk.cc/auMNXq
 🌟Vk-Admin https://vk.cc/bW3Dm9 
