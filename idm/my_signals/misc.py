@@ -116,7 +116,7 @@ def timecheck(event: MySignalEvent) -> str:
 @dp.longpoll_event_register('дата')
 @dp.my_signal_event_register('дата')
 def timecheck(event: MySignalEvent) -> str:
-    ct = datetime.now(timezone(timedelta(hours=+3))).strptime(" Сегодня %d - день неделю не знаю 🌚👌\n%Y год.  (%j Дней в Году)")
+    ct = datetime.now(timezone(timedelta(hours=+3))).strftime(" Сегодня %d - день неделю не знаю 🌚👌\n%Y год.  (%j Дней в Году)")
     event.msg_op(1, ct)
     return "ok"
 
