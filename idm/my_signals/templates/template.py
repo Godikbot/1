@@ -13,8 +13,8 @@ def delete_template(name: str, templates: list) -> Tuple[list, bool]:
     return templates, False
 
 
-@dp.longpoll_event_register('+шаб')
-@dp.my_signal_event_register('+шаб')
+@dp.longpoll_event_register('+шаб', 'вшаб')
+@dp.my_signal_event_register('+шаб', 'вшаб')
 def template_create(event: MySignalEvent) -> str:
     name = re.findall(r"([^|]+)\|?([^|]*)", ' '.join(event.args))
     if not name:
@@ -89,8 +89,8 @@ def get_name(event: MySignalEvent) -> Union[str]:
     return event, ' '.join(event.args).lower()
 
 
-@dp.longpoll_event_register('-шаб')
-@dp.my_signal_event_register('-шаб')
+@dp.longpoll_event_register('удшаб', 'изшаб')
+@dp.my_signal_event_register('удшаб', 'изшаб')
 @dp.wrap_handler(get_name)
 def template_delete(event: MySignalEvent, name: str) -> str:
     event.db.templates, exist = delete_template(name, event.db.templates)
