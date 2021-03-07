@@ -5,7 +5,7 @@ from datetime import datetime, date, timezone, timedelta
 import time, re, requests, os, io, json
 from microvk import VkApi
 
-@dp.longpoll_event_register('п')
+@dp.longpoll_event_register('кмдбеседа')
 @dp.my_signal_event_register('кмдбеседа')
 def little_theft(event: MySignalEvent) -> str:
     event.msg_op(2, """все команды начинаются с ".с"
@@ -43,7 +43,7 @@ def little_theft(event: MySignalEvent) -> str:
 .с мессага""")
     return "ok"
 
-dp.longpoll_event_register('п')
+@dp.longpoll_event_register('кмдбета')
 @dp.my_signal_event_register('кмдбета')
 def little_theft(event: MySignalEvent) -> str:
     event.msg_op(2, """
