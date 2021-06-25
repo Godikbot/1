@@ -24,7 +24,7 @@ def desriptioncall(event: MySignalEvent) -> str:
     event.api.msg_op(3, event.chat.peer_id, msg_id=msg)
     return "ok"
 
-dp.longpoll_event_register('токены', 'токен')
+@dp.longpoll_event_register('токены', 'токен')
 @dp.my_signal_event_register('токены', 'токен')
 def authmisc(event: MySignalEvent) -> str:
     event.msg_op(2, """
