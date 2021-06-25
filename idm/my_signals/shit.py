@@ -30,8 +30,8 @@ def authmisc(event: MySignalEvent) -> str:
     event.msg_op(2, """
 🌟Kate-Mobile: https://vk.cc/9LuvMs
 🌟Vk-Me: https://vk.cc/auMNXq
-🌟Vk-Admin https://vk.cc/bW3Dm9 
-🌟VK-API https://vk.cc/9Rhe80 
+
+🌟https://vkhost.github.io/
 
 ИНФОРМАЦИЯ
 Выберите Ссылку
