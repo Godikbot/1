@@ -51,7 +51,7 @@ def start_update(event: MySignalEvent):
 
 def get_updater(token: str, message_id: int, peer_id: int):
     if PA:
-        msg = '✅ Ок, не трогай сервер секунд пять...'
+        msg = 'Мы идём против всего виртуального мира, нашли источник обновление, теперь обновляемая...'
     else:
         msg = '✅ Перезапусти скрипт'
     return """
