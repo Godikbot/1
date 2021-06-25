@@ -1,10 +1,10 @@
 from idm.objects import dp, MySignalEvent
-impoфrt time
+import time
 # from random import choice
 
 stickers = {
     "орех": 163,
-    "агурец": 162,  # я знаю, что это не "агурец", не ко мне вопросы
+    "агурец": 162, # я знаю, что это не "агурец", не ко мне вопросы
     "банан": 12669
 }
 
