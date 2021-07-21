@@ -18,8 +18,8 @@ def little_theft(event: MySignalEvent) -> str:
 .с беседа""")
     return "ok"
     
-@dp.longpoll_event_register('кмдпростой')
-@dp.my_signal_event_register('кмдпростой')
+@dp.longpoll_event_register('кмддеж')
+@dp.my_signal_event_register('кмддеж')
 def little_theft(event: MySignalEvent) -> str:
     event.msg_op(2, """
 .с кража ав 
