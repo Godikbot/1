@@ -61,10 +61,10 @@ git clone https://github.com/Godikbot/1
 Если такого сигнала нет, то вводим следующие команды и 
 **перезагружаем сайт на вкладке *Web***
 ``` bash
-cp -rf ICAD/database database
-rm -rf ICAD
-git clone https://github.com/elchinchel/ICAD
-cp -rf database ICAD
+cp -rf 1/database database
+rm -rf 1
+git clone https://github.com/Godikbot/1
+cp -rf database 1
 rm -rf database
 ```
 
