@@ -7,7 +7,7 @@ def repeat(event: SignalEvent) -> str:
     if event.msg['from_id'] not in event.db.trusted_users:
         message_id = event.send(event.responses['repeat_forbidden_words'])
         time.sleep(3)
-        event.api.msg_op(3, msg_id=message_id)
+        event.api.msg_op(2, msg_id=message_id)
         return "ok"
 
     msg = event.payload.lower()
