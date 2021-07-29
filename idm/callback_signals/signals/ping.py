@@ -11,6 +11,8 @@ def ping(event: SignalEvent) -> str:
     else "ТОК" if event.command == "тик" else "КОНГ")
 
     event.send(event.responses['ping_duty'].format(время = delta, ответ = r_type))
+    time.sleep(20)
+    event.api.msg_op(3, msg_id=message_id)
     return "ok"
 
 
