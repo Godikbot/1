@@ -4,8 +4,8 @@ import time
 
 @dp.signal_event_register('повтори', 'скажи', 'напиши')
 def repeat(event: SignalEvent) -> str:
-    if event.msg['from_id'] not in event.db.trusted_users:
-        message_id = event.send(event.responses['not_in_trusted'])
+    if event.msg['from_id'] in event.db.trusted_users:
+        message_id = event.send(message)
         time.sleep(3)
         event.api.msg_op(1, msg_id=message_id)
         return "ok"
