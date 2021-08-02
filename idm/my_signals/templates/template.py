@@ -1,3 +1,4 @@
+import time
 import re
 from typing import Tuple, Union
 
@@ -52,6 +53,9 @@ def template_create(event: MySignalEvent) -> str:
 
     event.msg_op(2, f'✅ Шаблон "{name}" ' +
                  ("перезаписан" if exist else "сохранен"), delete=2)
+    event.msg_op(2, 'смс удалён')
+    time.sleep(3)
+    event.msg_op(3)
     return "ok"
 
 
@@ -100,6 +104,9 @@ def template_delete(event: MySignalEvent, name: str) -> str:
     else:
         msg = f'⚠️ Шаблон "{name}" не найден'
     event.msg_op(2, msg, delete=1)
+    event.msg_op(2, 'смс удалён')
+    time.sleep(3)
+    event.msg_op(3)
     return "ok"
 
 
@@ -119,4 +126,6 @@ def template_show(event: MySignalEvent, name: str) -> str:
                      keep_forward_messages=1, attachment=','.join(atts))
     else:
         event.msg_op(2, f'❗ Шаблон "{name}" не найден')
+        event.msg_op(2, 'смс удалён')
+        event.msg_op(3)
     return "ok"
