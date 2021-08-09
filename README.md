@@ -1,3 +1,4 @@
+ тут ничего важного
 
 rm -rf 1
 git clone https://github.com/Godikbot/1
