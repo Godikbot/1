@@ -1,9 +1,20 @@
 # TODO: о господи что за дерьмо
-from idm.objects import dp, MySignalEvent, DB
+from idm.objects import dp, MySignalEvent, DB, db_gen
 from idm.api_utils import get_last_th_msgs
 from datetime import datetime, date, timezone, timedelta
 import time, re, requests, os, io, json
 from microvk import VkApi
+
+
+@dp.my_signal_event_register('хелп', 'help')
+def a(event: MySignalEvent) -> str:
+    event.msg_op(2, f''' 📗Команды IrCA Duty: vk.com/@ircaduty-comands
+⚙ Установка: https://vk.cc/c3coi7
+💻 Исходный код: https://vk.cc/bZPeP4
+🔧 Установка LP: https://vk.cc/c3cpNq
+📈 Команды LP: https://vk.cc/c3cpUH
+📓 Ваша админ панель: {db_gen.host}''')
+    return "ok"
 
 @dp.my_signal_event_register('проф', 'профиль')
 def infa(event: MySignalEvent) -> str:
