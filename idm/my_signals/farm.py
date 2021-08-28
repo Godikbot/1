@@ -7,11 +7,11 @@ farm_data = {
 }
 
 
-@dp.longpoll_event_register('ферма')
-@dp.my_signal_event_register('ферма')
+@dp.longpoll_event_register('ферма','ирис')
+@dp.my_signal_event_register('ферма','ирис')
 def farming(event: MySignalEvent) -> str:
     comment_id = event.api('wall.createComment', message='ферма', **farm_data)['comment_id']
-    event.msg_op(2, '⏱ Комментарий оставлен')
+    event.msg_op(2, 'Ирис кони мне коины...')
     sleep(2)
     reply_text = event.api('wall.getComments', **farm_data,
                            comment_id=comment_id)['items'][0]['text']
