@@ -126,8 +126,7 @@ def setup():
         return redirect('/')
 
     tokens = format_tokens([
-        request.form.get('access_token'),
-        request.form.get('me_token')
+        request.form.get('access_token')
     ])
 
     user_id = check_tokens(tokens)[0]
@@ -138,7 +137,6 @@ def setup():
     db = DB()
 
     db.access_token = tokens[0]
-    db.me_token = tokens[1]
 
     db.secret = gen_secret()
     db_gen.host = "https://" + request.host
@@ -204,7 +202,7 @@ def api(method: str):
             else:
                 break
             i += 1
-        temp = {'name': request.form['new_name'],
+        temp = {'name': request.form['new_name'].lower(),
                 'frames': frames, 'speed': float(request.form['speed'])}
         for i in range(len(db.anims)):
             if db.anims[i]['name'] == name:
