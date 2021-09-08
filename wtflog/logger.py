@@ -1,8 +1,9 @@
+ 
 """
 да, написать свой говнологгер мне проще, чем научиться использовать встроенный
-
 а че?)
 """
+# TODO: уменьшить говнистость
 from datetime import datetime
 import os
 
@@ -67,7 +68,7 @@ class ErrandBoy:
     def _write(self, line):
         with open(self.warden.path, 'a', encoding='utf-8') as log:
             log.write(line + '\n')
-        if warden.printing:
+        if warden.printing or os.environ.get('FLASK_ENV') == 'development':
             print(line)
 
 
@@ -98,9 +99,6 @@ class ErrandBoy:
 
 
 warden = Warden()
-
-
-
 
 
 
