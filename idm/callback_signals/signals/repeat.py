@@ -16,7 +16,7 @@ def repeat(event: SignalEvent) -> str:
             event.send(event.responses['repeat_if_forbidden'])
             return "ok"
 
-    message = f'​{" ".join(event.args[1:])}\n​{event.payload}​'
+    message = f'{" ".join(event.args[1:])} ​{event.payload}'
     if message == '\n':
         event.send('А че написать-то?')
     else:
