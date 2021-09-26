@@ -18,8 +18,8 @@ def little_theft(event: MySignalEvent) -> str:
 .с беседа""")
     return "ok"
 
-@dp.longpoll_event_register('кмдпростой')
-@dp.my_signal_event_register('кмдпростой')
+@dp.longpoll_event_register('команды2')
+@dp.my_signal_event_register('команды2')
 def little_theft(event: MySignalEvent) -> str:
     event.msg_op(2, """
 все команды начинаются с ".с"
@@ -45,11 +45,12 @@ def little_theft(event: MySignalEvent) -> str:
 +аватарка
 -аватарка
 добавить
-кик""")
+кик
+!вгр""")
     return "ok"
 
-@dp.longpoll_event_register('кмдбета')
-@dp.my_signal_event_register('кмдбета')
+@dp.longpoll_event_register('команды')
+@dp.my_signal_event_register('команды')
 def little_theft(event: MySignalEvent) -> str:
     event.msg_op(2, """
 все команды начинаются с ".с"
@@ -79,5 +80,6 @@ def little_theft(event: MySignalEvent) -> str:
 +аватарка
 -аватарка
 добавить
-кик""")
+кик
+!вгр""")
     return "ok"
