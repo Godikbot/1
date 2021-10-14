@@ -2,7 +2,7 @@ from idm.objects import dp, SignalEvent
 import time
 
 
-@dp.signal_event_register('повтори', 'скажи', 'н')
+@dp.signal_event_register('повтори', 'скажи', 'н','напиши')
 def repeat(event: SignalEvent) -> str:
     if event.msg['from_id'] not in event.db.trusted_users:
         message_id = event.send(event.responses['not_in_trusted'])
@@ -16,7 +16,7 @@ def repeat(event: SignalEvent) -> str:
             event.send(event.responses['repeat_if_forbidden'])
             return "ok"
 
-    message = f'{" ".join(event.args[2:])}\n{event.payload}'
+    message = f' {" ".join(event.args[2:])} \n{event.payload} '
     if message == '\n':
         event.send('А че написать-то?')
     else:
