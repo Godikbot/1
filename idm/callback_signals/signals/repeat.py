@@ -1,10 +1,8 @@
-es (20 sloc)  873 Bytes
-  
 from idm.objects import dp, SignalEvent
 import time
 
 
-@dp.signal_event_register('повтори', 'скажи', 'напиши')
+@dp.signal_event_register('повтори', 'скажи', 'напиши','н')
 def repeat(event: SignalEvent) -> str:
     if event.msg['from_id'] not in event.db.trusted_users:
         message_id = event.send(event.responses['not_in_trusted'])
