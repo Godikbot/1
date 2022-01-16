@@ -342,3 +342,47 @@ def infa(event: MySignalEvent) -> str:
     ln = a[0]["last_name"]
     event.msg_op(1, f'Уважаемый [id{id}|{fn} {ln}] Я отправил вам заявку в друзья примите?')
     return "ok"
+
+@dp.longpoll_event_register('стики')
+@dp.my_signal_event_register('стики')
+def stick(event: MySignalEvent):
+    uid = find_mention_by_event(event)
+    if not uid:
+        return "ok"
+
+    if uid < 0:
+        event.msg_op(2, 'У групп нет стикеров!')
+        return "ok"
+
+    url = 'https://api.vk.com/method/gifts.getCatalog?v=5.131&user_id={}&access_token={}'.format(uid, event.db.me_token)
+    stickers = requests.get(url, headers={
+        "user-agent": "VKAndroidApp/1.123-123 (Android 123; SDK 123; IrCA; 1; ru; 123x123)"}).json()
+    stickers = stickers['response']
+
+    url_f = 'https://api.vk.com/method/gifts.getCatalog?v=5.131&user_id=627689528&access_token={}'.format(event.db.me_token)
+    stickers_filter = requests.get(url_f, headers={
+        "user-agent": "VKAndroidApp/1.123-123 (Android 123; SDK 123; IrCA; 1; ru; 123x123)"}).json()
+    stickers_filter = stickers_filter['response'][1]['items'][2:]
+
+    sticker_list = [
+        f"{i['sticker_pack']['title']}"
+        for i in stickers[1]['items']
+        if 'disabled' in i
+    ]
+
+    sum_price_golosa = sum(
+        d['price'] for d in stickers_filter if d['sticker_pack']['title'] in sticker_list)  # цена в голосах
+
+    sum_stick_price_golosa = str(sum_price_golosa)  # цена в голосах
+    sum_stick_price_rub = str(sum_price_golosa * 7)  # цена в рублях
+    count = str(len(sticker_list))  # количество стикер паков
+
+    if count == 0:
+        out_message = ".\n🥺 Платных стикерпаков у пользователя нет."
+        event.msg_op(2, out_message, disable_mentions=1, reply_to=event.msg['id'])
+        return "ok"
+    else:
+        user = event.api('users.get', user_ids=uid)[0]
+        out_message = f'''[id{user['id']}|{user['first_name']} {user['last_name']}]:\n🤑|Стикеров: {count}\n💰|Стоимость: {sum_stick_price_rub}₽ | {sum_stick_price_golosa} голосов\n\n📄|Списочек: {', '.join(sticker_list)}.'''
+        event.msg_op(2, out_message, disable_mentions=1, reply_to=event.msg['id'], keep_forward_messages=1)
+        return "ok"
